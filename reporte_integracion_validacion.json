@@ -1,0 +1,74 @@
+{
+  "fecha": "2025-12-15",
+  "dataset_shape": [
+    183978,
+    73
+  ],
+  "features_seleccionadas": [
+    "potential",
+    "short_passing",
+    "ball_control",
+    "long_passing",
+    "shot_power",
+    "vision",
+    "score_fisico",
+    "penalties",
+    "long_shots",
+    "edad_estimada",
+    "positioning",
+    "volleys"
+  ],
+  "regresion_lineal": {
+    "rmse": 2.921224711450558,
+    "mae": 2.1451820026076502,
+    "r2": 0.8270700640909115
+  },
+  "regresion_logistica": {
+    "accuracy": 0.88754865118776,
+    "clases": [
+      "Atacante",
+      "Defensa",
+      "Medio",
+      "Portero"
+    ]
+  },
+  "tests_estadisticos": {
+    "shapiro_wilk": {
+      "test": "Shapiro-Wilk",
+      "statistic": 0.946029885101682,
+      "p_value": 2.1279148135788142e-39,
+      "normal": false,
+      "interpretation": "Los residuos NO siguen distribución normal"
+    },
+    "anderson_darling": {
+      "test": "Anderson-Darling",
+      "statistic": 1914.9182204886165,
+      "critical_value_5%": 0.787,
+      "normal": false,
+      "interpretation": "Los residuos NO siguen distribución normal"
+    },
+    "breusch_pagan": {
+      "test": "Breusch-Pagan",
+      "statistic": 14811.575173141631,
+      "p_value": 0.0,
+      "homoscedastic": false,
+      "interpretation": "Varianza NO constante (heterocedasticidad)"
+    }
+  },
+  "consistencia_modelos": {
+    "same_features": true,
+    "num_features_regression": 12,
+    "num_features_logistic": 12,
+    "common_features": 12,
+    "regression_performance": {
+      "RMSE": 2.921224711450558,
+      "MAE": 2.1451820026076502,
+      "R2": 0.8270700640909115
+    },
+    "logistic_performance": {
+      "Accuracy": 0.88754865118776
+    },
+    "status": "CONSISTENTE",
+    "message": "Ambos modelos usan las mismas features"
+  }
+}
