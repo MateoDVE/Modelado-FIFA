@@ -274,6 +274,74 @@ def build_position_target_by_rules(df: pd.DataFrame):
     hybrid = margin < 5.0  # ajustable
     return y, hybrid, scores, labels
 
+def build_position_target_7_classes(df: pd.DataFrame):
+    """
+    Genera 7 clases específicas para MLP Clasificador.
+    
+    Posiciones:
+    1. Portero (GK)
+    2. Defensa Central (CB) 
+    3. Lateral (LB/RB)
+    4. Pivote (CDM)
+    5. Mediocentro (CM)
+    6. Extremo (LW/RW)
+    7. Delantero (ST)
+    """
+    required = [
+        "gk_diving", "gk_handling", "gk_kicking", "gk_positioning", "gk_reflexes",
+        "marking", "standing_tackle", "sliding_tackle", "interceptions",
+        "short_passing", "long_passing", "vision", "ball_control",
+        "finishing", "positioning", "shot_power", "volleys", "dribbling",
+        "crossing", "acceleration", "sprint_speed", "agility"
+    ]
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise ValueError(f"Faltan columnas necesarias para 7 posiciones: {missing}")
+    
+    def col(name):
+        return df[name].astype(float).to_numpy()
+    
+    # 1. Portero
+    GK = (col("gk_diving") + col("gk_handling") + col("gk_kicking") +
+          col("gk_positioning") + col("gk_reflexes")) / 5.0
+    
+    # 2. Defensa Central
+    CB = (col("marking") + col("standing_tackle") + col("sliding_tackle") +
+          col("interceptions")) / 4.0
+    
+    # 3. Lateral (defensa + velocidad + cruce)
+    LB = (col("marking") + col("standing_tackle") + col("acceleration") +
+          col("sprint_speed") + col("crossing")) / 5.0
+    
+    # 4. Pivote (defensa + pase)
+    CDM = (col("interceptions") + col("standing_tackle") + col("short_passing") +
+           col("long_passing") + col("marking")) / 5.0
+    
+    # 5. Mediocentro (pase + control)
+    CM = (col("short_passing") + col("long_passing") + col("vision") +
+          col("ball_control")) / 4.0
+    
+    # 6. Extremo (velocidad + regate + cruce)
+    LW = (col("dribbling") + col("crossing") + col("acceleration") +
+          col("sprint_speed") + col("agility")) / 5.0
+    
+    # 7. Delantero
+    ST = (col("finishing") + col("positioning") + col("shot_power") +
+          col("volleys") + col("dribbling")) / 5.0
+    
+    scores = np.vstack([GK, CB, LB, CDM, CM, LW, ST]).T  # (m, 7)
+    labels = np.array(["Portero", "Defensa_Central", "Lateral", "Pivote", 
+                       "Mediocentro", "Extremo", "Delantero"], dtype=object)
+    
+    y = labels[np.argmax(scores, axis=1)]
+    
+    # Híbridos: margen pequeño entre top-2
+    sorted_scores = np.sort(scores, axis=1)
+    margin = sorted_scores[:, -1] - sorted_scores[:, -2]
+    hybrid = margin < 5.0
+    
+    return y, hybrid, scores, labels
+
 def undersample_balance(X, y, seed=42):
     rng = np.random.default_rng(seed)
     classes, counts = np.unique(y, return_counts=True)
