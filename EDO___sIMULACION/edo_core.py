@@ -184,20 +184,21 @@ def ode_rhs(
          + params.gammaFT * (T - F)/100.0 * 10.0 \
          + params.gammaFM * (M - F)/100.0 * 10.0
 
-    dT = params.alphaT * train.ET * fatigue_factor * (1 - T/params.Tmax) \
-         - (bT + 0.6*fatique_penalty(fatigue_penalty:=fatigue_penalty)) * (T/100.0) * 10.0 \
-         + params.gammaFT * (F - T)/100.0 * 10.0 \
-         + params.gammaTM * (M - T)/100.0 * 10.0
+        dT = params.alphaT * train.ET * fatigue_factor * (1 - T/params.Tmax) \
+            - (bT + 0.6 * fatigue_penalty) * (T/100.0) * 10.0 \
+            + params.gammaFT * (F - T)/100.0 * 10.0 \
+            + params.gammaTM * (M - T)/100.0 * 10.0
 
     # M responde a progreso + entrenamiento mental, con deltaM
     growth_signal = (abs(dF) + abs(dT)) * 0.05
-    dM = params.alphaM * train.EM * (1 - M/params.Mmax) \
-         - (bM + 0.4*fatique_penalty(fatigue_penalty)) * (M/100.0) * 10.0 \
-         + params.deltaM * growth_signal
+        dM = params.alphaM * train.EM * (1 - M/params.Mmax) \
+            - (bM + 0.4 * fatigue_penalty) * (M/100.0) * 10.0 \
+            + params.deltaM * growth_signal
 
     return dF, dT, dM
 
 def fatique_penalty(x: float) -> float:
+    # backward-compatible alias kept for older references
     return x
 
 # =========================
