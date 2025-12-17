@@ -58,6 +58,11 @@ class ODEParams:
     Tmax: float = 100.0
     Mmax: float = 100.0
 
+    # Slopes de envejecimiento (nuevo)
+    slopeF: float = 0.10
+    slopeT: float = 0.08
+    slopeM: float = 0.06
+
 @dataclass
 class InjuryEvent:
     """Evento de lesión."""
@@ -137,6 +142,9 @@ def calibrate_params_from_ml(
         Aopt=Aopt,
         sigma=2.0,
         deltaM=0.20,
+        slopeF=0.10,
+        slopeT=0.08,
+        slopeM=0.06
     )
     return p, w
 
@@ -167,9 +175,9 @@ def ode_rhs(
     age = age0 + t  # t en años
 
     # decaimiento por edad (crece tras 30)
-    bF = beta_age(age, params.betaF0, pivot=30.0, slope=0.10)
-    bT = beta_age(age, params.betaT0, pivot=30.0, slope=0.08)
-    bM = beta_age(age, params.betaM0, pivot=30.0, slope=0.06)
+    bF = beta_age(age, params.betaF0, pivot=30.0, slope=params.slopeF)
+    bT = beta_age(age, params.betaT0, pivot=30.0, slope=params.slopeT)
+    bM = beta_age(age, params.betaM0, pivot=30.0, slope=params.slopeM)
 
     # fatiga reduce crecimiento y aumenta “pérdida efectiva”
     fatigue_factor = (1.0 - 0.35 * fatigue)  # 1.0 -> sin fatiga, baja con fatiga
