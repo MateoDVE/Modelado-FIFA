@@ -19,7 +19,7 @@ import pandas as pd
 import json
 from models import (
     MLPRegressor, MLPClassifier,
-    build_position_target_by_rules, undersample_balance,
+    build_position_target_by_rules, build_position_target_7_classes, undersample_balance,
     rmse, mae, r2_score, confusion_matrix, ID_COLS
 )
 
@@ -128,11 +128,11 @@ def hyperparameter_search_regression(X_train, y_train, X_val, y_val, verbose=Tru
         print("🔍 BÚSQUEDA DE HIPERPARÁMETROS - RED 1 (REGRESIÓN)")
         print("="*80)
     
-    # Grid de hiperparámetros (OPTIMIZADO - Learning rates seguros)
+    # Grid de hiperparámetros (ESTABLE - Sin overflow)
     param_grid = {
-        'learning_rate': [0.0005, 0.001],  # Reducidos para evitar overflow
+        'learning_rate': [0.0003, 0.0005],  # Solo valores estables
         'l2_lambda': [0.01, 0.05],
-        'n_iter': [500, 800]
+        'n_iter': [2000, 2500]  # Reducido para evitar overflow
     }
     
     best_score = float('inf')  # Queremos minimizar RMSE
@@ -233,11 +233,11 @@ def hyperparameter_search_classification(X_train, y_train, X_val, y_val,
         print("🔍 BÚSQUEDA DE HIPERPARÁMETROS - RED 2 (CLASIFICACIÓN)")
         print("="*80)
     
-    # Grid de hiperparámetros (OPTIMIZADO - Learning rates seguros)
+    # Grid de hiperparámetros (ESTABLE - Sin overflow)
     param_grid = {
-        'learning_rate': [0.0005, 0.001],  # Reducidos para evitar overflow
+        'learning_rate': [0.0003, 0.0005],  # Solo valores estables
         'l2_lambda': [0.01, 0.05],
-        'n_iter': [500, 800]
+        'n_iter': [2000, 2500]  # Reducido para evitar overflow
     }
     
     best_score = 0.0  # Queremos maximizar accuracy
@@ -362,14 +362,18 @@ def train_red1_with_optimization(df, verbose=True):
     X = df_clean[top20_features].to_numpy(dtype=float)
     y = df_clean[TARGET].to_numpy(dtype=float)
     
-    # ⚠️ MODO PRUEBA RÁPIDA: Usar subset de 20,000 ejemplos
-    if len(X) > 20000:
-        rng = np.random.default_rng(42)
-        indices = rng.choice(len(X), size=20000, replace=False)
-        X = X[indices]
-        y = y[indices]
-        if verbose:
-            print(f"\n⚡ MODO PRUEBA: Usando subset de 20,000 ejemplos")
+    # 📊 ENTRENAMIENTO COMPLETO: Usar todos los datos
+    # Para prueba rápida, descomentar las líneas siguientes:
+    # if len(X) > 20000:
+    #     rng = np.random.default_rng(42)
+    #     indices = rng.choice(len(X), size=20000, replace=False)
+    #     X = X[indices]
+    #     y = y[indices]
+    #     if verbose:
+    #         print(f"\n⚡ MODO PRUEBA: Usando subset de 20,000 ejemplos")
+    
+    if verbose:
+        print(f"\n📊 Usando dataset completo: {len(X):,} ejemplos")
     
     # División estratificada
     X_train, X_val, X_test, y_train, y_val, y_test = stratified_train_val_test_split(
@@ -470,8 +474,8 @@ def train_red2_with_optimization(df, verbose=True):
         print("🚀 ESTUDIANTE A: ENTRENAMIENTO RED 2 - CLASIFICACIÓN DE PERFIL")
         print("="*80)
     
-    # Crear target por reglas
-    y_position, _, _, _ = build_position_target_by_rules(df)
+    # Crear target por reglas (7 posiciones específicas)
+    y_position, _, _, _ = build_position_target_7_classes(df)
     
     # Seleccionar 15 características clave
     key_features = [

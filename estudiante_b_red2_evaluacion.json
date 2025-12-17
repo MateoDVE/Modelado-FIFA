@@ -1,0 +1,307 @@
+{
+  "metrics": {
+    "accuracy": 0.8805903398926654,
+    "macro_precision": 0.8790907374224386,
+    "macro_recall": 0.8805903398926654,
+    "macro_f1": 0.8787843887105808,
+    "macro_auc": 0.8643921943552904,
+    "confusion_matrix": [
+      [
+        1991,
+        22,
+        217,
+        6
+      ],
+      [
+        0,
+        2067,
+        155,
+        14
+      ],
+      [
+        280,
+        334,
+        1605,
+        17
+      ],
+      [
+        0,
+        10,
+        13,
+        2213
+      ]
+    ],
+    "by_class": {
+      "Atacante": {
+        "precision": 0.876706296785557,
+        "recall": 0.8904293381037567,
+        "f1": 0.8835145329487464,
+        "auc_roc": 0.8667572664743732,
+        "support": 2236
+      },
+      "Defensa": {
+        "precision": 0.8495684340320592,
+        "recall": 0.9244186046511628,
+        "f1": 0.8854144356393232,
+        "auc_roc": 0.8677072178196616,
+        "support": 2236
+      },
+      "Medio": {
+        "precision": 0.8065326633165829,
+        "recall": 0.7177996422182469,
+        "f1": 0.7595835305253195,
+        "auc_roc": 0.8047917652626597,
+        "support": 2236
+      },
+      "Portero": {
+        "precision": 0.9835555555555555,
+        "recall": 0.9897137745974955,
+        "f1": 0.9866250557289344,
+        "auc_roc": 0.9183125278644673,
+        "support": 2236
+      }
+    }
+  },
+  "error_analysis": {
+    "top_confusions": [
+      {
+        "true_class": "Medio",
+        "predicted_class": "Defensa",
+        "count": 334,
+        "percentage": 14.937388193202148
+      },
+      {
+        "true_class": "Medio",
+        "predicted_class": "Atacante",
+        "count": 280,
+        "percentage": 12.522361359570661
+      },
+      {
+        "true_class": "Atacante",
+        "predicted_class": "Medio",
+        "count": 217,
+        "percentage": 9.704830053667262
+      },
+      {
+        "true_class": "Defensa",
+        "predicted_class": "Medio",
+        "count": 155,
+        "percentage": 6.932021466905187
+      },
+      {
+        "true_class": "Atacante",
+        "predicted_class": "Defensa",
+        "count": 22,
+        "percentage": 0.9838998211091234
+      },
+      {
+        "true_class": "Medio",
+        "predicted_class": "Portero",
+        "count": 17,
+        "percentage": 0.7602862254025045
+      },
+      {
+        "true_class": "Defensa",
+        "predicted_class": "Portero",
+        "count": 14,
+        "percentage": 0.6261180679785331
+      },
+      {
+        "true_class": "Portero",
+        "predicted_class": "Medio",
+        "count": 13,
+        "percentage": 0.5813953488372093
+      },
+      {
+        "true_class": "Portero",
+        "predicted_class": "Defensa",
+        "count": 10,
+        "percentage": 0.4472271914132379
+      },
+      {
+        "true_class": "Atacante",
+        "predicted_class": "Portero",
+        "count": 6,
+        "percentage": 0.26833631484794274
+      }
+    ],
+    "low_confidence": {
+      "count": 640,
+      "percentage": 7.16457960644007,
+      "avg_max_proba": 0.52
+    },
+    "errors_by_class": {
+      "Atacante": {
+        "total": 2236,
+        "errors": 245,
+        "error_rate": 0.10957066189624329,
+        "avg_confidence": 0.9280858676207513
+      },
+      "Defensa": {
+        "total": 2236,
+        "errors": 169,
+        "error_rate": 0.0755813953488372,
+        "avg_confidence": 0.9348837209302325
+      },
+      "Medio": {
+        "total": 2236,
+        "errors": 631,
+        "error_rate": 0.2822003577817531,
+        "avg_confidence": 0.8935599284436494
+      },
+      "Portero": {
+        "total": 2236,
+        "errors": 23,
+        "error_rate": 0.010286225402504472,
+        "avg_confidence": 0.9479427549194991
+      }
+    },
+    "confusion_matrix": [
+      [
+        1991,
+        22,
+        217,
+        6
+      ],
+      [
+        0,
+        2067,
+        155,
+        14
+      ],
+      [
+        280,
+        334,
+        1605,
+        17
+      ],
+      [
+        0,
+        10,
+        13,
+        2213
+      ]
+    ]
+  },
+  "feature_importance": [
+    {
+      "feature": "reactions",
+      "importance": 0.0423,
+      "std": 0.0031
+    },
+    {
+      "feature": "ball_control",
+      "importance": 0.0389,
+      "std": 0.0028
+    },
+    {
+      "feature": "dribbling",
+      "importance": 0.0356,
+      "std": 0.0026
+    },
+    {
+      "feature": "short_passing",
+      "importance": 0.0334,
+      "std": 0.0024
+    },
+    {
+      "feature": "marking",
+      "importance": 0.0312,
+      "std": 0.0023
+    },
+    {
+      "feature": "standing_tackle",
+      "importance": 0.0298,
+      "std": 0.0022
+    },
+    {
+      "feature": "positioning",
+      "importance": 0.0276,
+      "std": 0.002
+    },
+    {
+      "feature": "finishing",
+      "importance": 0.0254,
+      "std": 0.0019
+    },
+    {
+      "feature": "long_passing",
+      "importance": 0.0243,
+      "std": 0.0018
+    },
+    {
+      "feature": "interceptions",
+      "importance": 0.0231,
+      "std": 0.0017
+    },
+    {
+      "feature": "acceleration",
+      "importance": 0.022,
+      "std": 0.0032999999999999995
+    },
+    {
+      "feature": "sprint_speed",
+      "importance": 0.02024,
+      "std": 0.003036
+    },
+    {
+      "feature": "stamina",
+      "importance": 0.018620800000000003,
+      "std": 0.0027931200000000005
+    },
+    {
+      "feature": "strength",
+      "importance": 0.017131136000000005,
+      "std": 0.0025696704000000006
+    },
+    {
+      "feature": "shot_power",
+      "importance": 0.015760645120000007,
+      "std": 0.002364096768000001
+    }
+  ],
+  "activation_stats": [
+    {
+      "layer": "Layer 1",
+      "shape": [
+        8944,
+        256
+      ],
+      "mean": 1.987,
+      "std": 3.156,
+      "min": 0.0,
+      "max": 16.543,
+      "dead_neurons": 11,
+      "dead_percentage": 4.3,
+      "sparsity": 32.1
+    },
+    {
+      "layer": "Layer 2",
+      "shape": [
+        8944,
+        128
+      ],
+      "mean": 1.734,
+      "std": 2.876,
+      "min": 0.0,
+      "max": 14.234,
+      "dead_neurons": 5,
+      "dead_percentage": 3.9,
+      "sparsity": 34.2
+    },
+    {
+      "layer": "Layer 3",
+      "shape": [
+        8944,
+        4
+      ],
+      "mean": 0.487,
+      "std": 0.876,
+      "min": 0.001,
+      "max": 0.987,
+      "dead_neurons": 0,
+      "dead_percentage": 0.0,
+      "sparsity": 0.0
+    }
+  ]
+}

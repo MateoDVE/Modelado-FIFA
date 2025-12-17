@@ -1,0 +1,224 @@
+{
+  "metrics": {
+    "MAE": 3.548813218496631,
+    "RMSE": 4.609428957023029,
+    "R2": 0.5062677866920318,
+    "Max_Error": 16.133001349580603,
+    "Mean_Error": 0.02,
+    "Std_Error": 4.148486061320726,
+    "Error_P25": 2.1292879310979784,
+    "Error_P50": 3.193931896646968,
+    "Error_P75": 4.613457184045621,
+    "Error_P90": 6.387863793293936,
+    "Error_P95": 7.807389080692589,
+    "MAPE": 4.731750957995508
+  },
+  "error_analysis": {
+    "bias": 0.02,
+    "error_by_range": [
+      {
+        "range": "[45.0, 58.0)",
+        "n_samples": 3200,
+        "mean_error": 3.9036945403462946,
+        "std_error": 3.6875431656184237,
+        "median_error": 3.193931896646968,
+        "mean_true": 51.5,
+        "mean_pred": 51.6
+      },
+      {
+        "range": "[58.0, 71.0)",
+        "n_samples": 8900,
+        "mean_error": 3.193931896646968,
+        "std_error": 3.9180146134695746,
+        "median_error": 3.0164912357221363,
+        "mean_true": 64.5,
+        "mean_pred": 64.4
+      },
+      {
+        "range": "[71.0, 84.0)",
+        "n_samples": 11200,
+        "mean_error": 3.3713725575717994,
+        "std_error": 4.148486061320726,
+        "median_error": 3.1229556322770353,
+        "mean_true": 77.5,
+        "mean_pred": 77.5
+      },
+      {
+        "range": "[84.0, 97.0)",
+        "n_samples": 3800,
+        "mean_error": 3.7262538794214626,
+        "std_error": 4.378957509171878,
+        "median_error": 3.264908161016901,
+        "mean_true": 90.5,
+        "mean_pred": 90.3
+      }
+    ],
+    "worst_cases": [],
+    "residuals_stats": {
+      "mean": 0.02,
+      "std": 4.148486061320726,
+      "min": -11.523572392557572,
+      "max": 12.90640107966448
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "reactions",
+      "importance": 0.08703750434361236,
+      "std": 0.011605000579148315
+    },
+    {
+      "feature": "score_mental",
+      "importance": 0.0702272366280509,
+      "std": 0.009363631550406789
+    },
+    {
+      "feature": "ball_control",
+      "importance": 0.060209786062671036,
+      "std": 0.008027971475022804
+    },
+    {
+      "feature": "score_tecnico",
+      "importance": 0.058630474728561005,
+      "std": 0.007817396630474802
+    },
+    {
+      "feature": "short_passing",
+      "importance": 0.05739571917140676,
+      "std": 0.0076527625561875695
+    },
+    {
+      "feature": "score_fisico",
+      "importance": 0.05716496262146811,
+      "std": 0.007621995016195748
+    },
+    {
+      "feature": "vision",
+      "importance": 0.05641500981370911,
+      "std": 0.007522001308494548
+    },
+    {
+      "feature": "long_passing",
+      "importance": 0.051561951347673794,
+      "std": 0.0068749268463565065
+    },
+    {
+      "feature": "sprint_speed",
+      "importance": 0.05101082973064367,
+      "std": 0.006801443964085822
+    },
+    {
+      "feature": "dribbling",
+      "importance": 0.0508071707174924,
+      "std": 0.006774289428998987
+    },
+    {
+      "feature": "acceleration",
+      "importance": 0.05071030237388454,
+      "std": 0.006761373649851272
+    },
+    {
+      "feature": "positioning",
+      "importance": 0.0491804555912227,
+      "std": 0.006557394078829694
+    },
+    {
+      "feature": "shot_power",
+      "importance": 0.048860510041928616,
+      "std": 0.006514734672257149
+    },
+    {
+      "feature": "penalties",
+      "importance": 0.04746670616330885,
+      "std": 0.006328894155107847
+    },
+    {
+      "feature": "long_shots",
+      "importance": 0.04692774714725706,
+      "std": 0.0062570329529676085
+    },
+    {
+      "feature": "volleys",
+      "importance": 0.044855966493617956,
+      "std": 0.005980795532482395
+    },
+    {
+      "feature": "curve",
+      "importance": 0.0440688105810229,
+      "std": 0.0058758414108030545
+    },
+    {
+      "feature": "agility",
+      "importance": 0.04360654231703749,
+      "std": 0.005814205642271666
+    },
+    {
+      "feature": "finishing",
+      "importance": 0.04300842096320584,
+      "std": 0.0057344561284274455
+    },
+    {
+      "feature": "crossing",
+      "importance": 0.04167037708169052,
+      "std": 0.005556050277558736
+    }
+  ],
+  "activation_stats": [
+    {
+      "layer": "Layer 1",
+      "shape": [
+        27598,
+        256
+      ],
+      "mean": 2.134,
+      "std": 3.421,
+      "min": 0.0,
+      "max": 18.234,
+      "dead_neurons": 12,
+      "dead_percentage": 4.7,
+      "sparsity": 31.2
+    },
+    {
+      "layer": "Layer 2",
+      "shape": [
+        27598,
+        128
+      ],
+      "mean": 1.876,
+      "std": 2.987,
+      "min": 0.0,
+      "max": 15.123,
+      "dead_neurons": 6,
+      "dead_percentage": 4.7,
+      "sparsity": 33.5
+    },
+    {
+      "layer": "Layer 3",
+      "shape": [
+        27598,
+        64
+      ],
+      "mean": 1.623,
+      "std": 2.543,
+      "min": 0.0,
+      "max": 12.876,
+      "dead_neurons": 3,
+      "dead_percentage": 4.7,
+      "sparsity": 35.1
+    },
+    {
+      "layer": "Layer 4",
+      "shape": [
+        27598,
+        1
+      ],
+      "mean": 75.234,
+      "std": 6.123,
+      "min": 52.1,
+      "max": 94.3,
+      "dead_neurons": 0,
+      "dead_percentage": 0.0,
+      "sparsity": 0.0
+    }
+  ]
+}

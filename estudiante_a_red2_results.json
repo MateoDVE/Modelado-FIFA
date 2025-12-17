@@ -1,0 +1,41 @@
+{
+  "architecture": [
+    15,
+    256,
+    128,
+    4
+  ],
+  "features": [
+    "reactions",
+    "ball_control",
+    "dribbling",
+    "short_passing",
+    "long_passing",
+    "acceleration",
+    "sprint_speed",
+    "stamina",
+    "strength",
+    "positioning",
+    "finishing",
+    "shot_power",
+    "marking",
+    "standing_tackle",
+    "interceptions"
+  ],
+  "classes": [
+    "Atacante",
+    "Defensa",
+    "Medio",
+    "Portero"
+  ],
+  "best_params": {
+    "learning_rate": 0.0005,
+    "l2_lambda": 0.01,
+    "n_iter": 2500
+  },
+  "results": {
+    "train_accuracy": 0.8867078899434379,
+    "val_accuracy": 0.8885906040268456,
+    "test_accuracy": 0.8805903398926654
+  }
+}

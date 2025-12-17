@@ -1,0 +1,53 @@
+{
+  "architecture": [
+    20,
+    256,
+    128,
+    64,
+    1
+  ],
+  "features": [
+    "reactions",
+    "score_mental",
+    "ball_control",
+    "score_tecnico",
+    "short_passing",
+    "score_fisico",
+    "vision",
+    "long_passing",
+    "sprint_speed",
+    "dribbling",
+    "acceleration",
+    "positioning",
+    "shot_power",
+    "penalties",
+    "long_shots",
+    "volleys",
+    "curve",
+    "agility",
+    "finishing",
+    "crossing"
+  ],
+  "best_params": {
+    "learning_rate": 0.0003,
+    "l2_lambda": 0.05,
+    "n_iter": 2500
+  },
+  "results": {
+    "train": {
+      "RMSE": 4.589516567300587,
+      "MAE": 3.537317771874948,
+      "R2": 0.512919057704436
+    },
+    "val": {
+      "RMSE": 4.607405264058992,
+      "MAE": 3.5553755090693344,
+      "R2": 0.5127335878503784
+    },
+    "test": {
+      "RMSE": 4.609428957023029,
+      "MAE": 3.548813218496631,
+      "R2": 0.5062677866920318
+    }
+  }
+}

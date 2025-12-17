@@ -1,0 +1,5 @@
+,pred_Atacante,pred_Defensa,pred_Medio,pred_Portero
+real_Atacante,1991,22,217,6
+real_Defensa,0,2067,155,14
+real_Medio,280,334,1605,17
+real_Portero,0,10,13,2213
