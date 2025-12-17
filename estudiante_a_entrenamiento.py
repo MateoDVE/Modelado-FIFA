@@ -17,9 +17,10 @@ import sqlite3
 import numpy as np
 import pandas as pd
 import json
+import pickle
 from models import (
     MLPRegressor, MLPClassifier,
-    build_position_target_by_rules, build_position_target_7_classes, undersample_balance,
+    build_position_target_7_classes, undersample_balance,
     rmse, mae, r2_score, confusion_matrix, ID_COLS
 )
 
@@ -647,9 +648,18 @@ def main():
             'results': results_red1['results']
         }, f, indent=2, ensure_ascii=False)
     
+    # Guardar modelo entrenado
+    with open("red1_regresion_trained.pkl", "wb") as f:
+        pickle.dump({
+            'model': results_red1['model'],
+            'features': results_red1['features'],
+            'best_params': results_red1['best_params']
+        }, f)
+    
     print("\n✅ Red 1: Resultados guardados en:")
     print("   - estudiante_a_red1_hyperparameters.csv")
     print("   - estudiante_a_red1_results.json")
+    print("   - red1_regresion_trained.pkl (MODELO GUARDADO)")
     
     # ==========================================
     # RED 2: CLASIFICACIÓN DE PERFIL
@@ -666,6 +676,15 @@ def main():
         index=[f"real_{c}" for c in results_red2['classes']],
         columns=[f"pred_{c}" for c in results_red2['classes']]
     ).to_csv("estudiante_a_red2_confusion_matrix.csv")
+    
+    # Guardar modelo entrenado
+    with open("red2_clasificacion_trained.pkl", "wb") as f:
+        pickle.dump({
+            'model': results_red2['model'],
+            'features': results_red2['features'],
+            'classes': results_red2['classes'],
+            'best_params': results_red2['best_params']
+        }, f)
     
     with open("estudiante_a_red2_results.json", "w", encoding="utf-8") as f:
         json.dump({
@@ -684,6 +703,7 @@ def main():
     print("   - estudiante_a_red2_hyperparameters.csv")
     print("   - estudiante_a_red2_confusion_matrix.csv")
     print("   - estudiante_a_red2_results.json")
+    print("   - red2_clasificacion_trained.pkl (MODELO GUARDADO)")
     
     # ==========================================
     # RESUMEN FINAL

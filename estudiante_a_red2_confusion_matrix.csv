@@ -1,5 +1,8 @@
-,pred_Atacante,pred_Defensa,pred_Medio,pred_Portero
-real_Atacante,1991,22,217,6
-real_Defensa,0,2067,155,14
-real_Medio,280,334,1605,17
-real_Portero,0,10,13,2213
+,pred_Defensa_Central,pred_Delantero,pred_Extremo,pred_Lateral,pred_Mediocentro,pred_Pivote,pred_Portero
+real_Defensa_Central,620,0,1,159,8,204,3
+real_Delantero,0,869,66,0,52,5,3
+real_Extremo,12,112,610,158,89,7,7
+real_Lateral,163,0,18,731,25,46,12
+real_Mediocentro,27,71,73,32,625,162,5
+real_Pivote,214,0,2,88,53,634,4
+real_Portero,1,0,2,0,0,1,991

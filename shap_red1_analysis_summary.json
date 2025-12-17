@@ -1,0 +1,28 @@
+{
+  "n_samples_analyzed": 200,
+  "n_features": 20,
+  "top_5_features": [
+    {
+      "feature": "ball_control",
+      "shap_importance": 1.223258955098518
+    },
+    {
+      "feature": "reactions",
+      "shap_importance": 0.801022084548263
+    },
+    {
+      "feature": "short_passing",
+      "shap_importance": 0.759884609096592
+    },
+    {
+      "feature": "score_tecnico",
+      "shap_importance": 0.674948713105727
+    },
+    {
+      "feature": "positioning",
+      "shap_importance": 0.5439052595219253
+    }
+  ],
+  "mean_shap_value": 0.42765918750886417,
+  "max_shap_value": 8.615012868672538
+}

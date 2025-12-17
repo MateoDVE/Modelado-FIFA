@@ -3,7 +3,7 @@
     15,
     256,
     128,
-    4
+    7
   ],
   "features": [
     "reactions",
@@ -23,9 +23,12 @@
     "interceptions"
   ],
   "classes": [
-    "Atacante",
-    "Defensa",
-    "Medio",
+    "Defensa_Central",
+    "Delantero",
+    "Extremo",
+    "Lateral",
+    "Mediocentro",
+    "Pivote",
     "Portero"
   ],
   "best_params": {
@@ -34,8 +37,8 @@
     "n_iter": 2500
   },
   "results": {
-    "train_accuracy": 0.8867078899434379,
-    "val_accuracy": 0.8885906040268456,
-    "test_accuracy": 0.8805903398926654
+    "train_accuracy": 0.7352923057968336,
+    "val_accuracy": 0.738430583501006,
+    "test_accuracy": 0.7293610911701364
   }
 }

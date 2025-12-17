@@ -1,0 +1,21 @@
+{
+  "n_samples_analyzed": 200,
+  "n_features": 15,
+  "n_classes": 7,
+  "classes": [
+    "Defensa_Central",
+    "Delantero",
+    "Extremo",
+    "Lateral",
+    "Mediocentro",
+    "Pivote",
+    "Portero"
+  ],
+  "top_5_features_global": {
+    "long_passing": 0.025814419944877803,
+    "dribbling": 0.02413316970228815,
+    "short_passing": 0.02104039522104299,
+    "ball_control": 0.019885613877055838,
+    "reactions": 0.01976798635747676
+  }
+}
