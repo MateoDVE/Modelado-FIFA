@@ -8,8 +8,8 @@ import os
 # Ensure models.py can be imported
 sys.path.append(os.getcwd())
 from models import MLPRegressor, MLPClassifier, ID_COLS, rmse, mae, r2_score, confusion_matrix
-from EDO___sIMULACION.edo_core import (
-    simulate_player, calibrate_params_from_ml, TrainingRegime, InjuryEvent, WeightsR
+from Dia3_EDO___sIMULACION.edo_core import (
+    simulate_player, calibrate_params_from_ml, TrainingRegime, InjuryEvent, WeightsR, FatigueConfig
 )
 
 app = Flask(__name__)
@@ -208,6 +208,14 @@ def predict():
             # Add an injury at year 2
             injuries.append(InjuryEvent(start_year=2.0, duration_years=0.5, severity=severity, mode="shock"))
             
+    # Fatigue configuration (enabled for realistic simulation)
+    fatigue_cfg = FatigueConfig(
+        enabled=True,
+        k=0.12,        # Accumulation rate
+        recovery=0.25, # Recovery rate with light training
+        cap=1.0        # Max fatigue
+    )
+    
     # Run simulation until age 50 (or at least 5 years)
     target_age = 50.0
     sim_years = max(5.0, target_age - age0)
@@ -220,7 +228,8 @@ def predict():
         params=params, 
         weights=w, 
         train_regime=train_regime, 
-        injuries=injuries
+        injuries=injuries,
+        fatigue_cfg=fatigue_cfg
     )
     
     # Downsample for chart (every ~4 weeks)
@@ -231,7 +240,8 @@ def predict():
         'R': [round(r, 1) for r in sim['R'][::step]],
         'F': [round(f, 1) for f in sim['F'][::step]],
         'T': [round(t, 1) for t in sim['T'][::step]],
-        'M': [round(m, 1) for m in sim['M'][::step]]
+        'M': [round(m, 1) for m in sim['M'][::step]],
+        'fatigue': [round(ftg, 4) for ftg in sim['fatigue'][::step]]
     }
 
     return jsonify(response)

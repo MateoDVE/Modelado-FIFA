@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Predicción de Futbolistas</title>
+    <title>⚽ Sistema Integrado de Análisis de Futbolistas | ML + EDO</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -38,6 +39,54 @@
         .growth-negative {
             color: #dc3545;
         }
+        .metric-card {
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            background: white;
+ <!-- Navbar -->
+<nav class="navbar navbar-dark navbar-custom mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">
+            <i class="fas fa-futbol"></i> Sistema Integrado de Análisis de Futbolistas
+        </span>
+        <span class="navbar-text text-white">
+            <small><i class="fas fa-brain"></i> ML + <i class="fas fa-chart-line"></i> EDO (Día 2 + Día 3)</small>
+        </span>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle"></i> <strong>Sistema Completo:</strong> 
+        Predicción de Potential y Posición con Redes Neuronales (Día 2) + 
+        Simulación Dinámica de Carrera con Ecuaciones Diferenciales (Día 3)
+    </div
+        }
+        .metric-title {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #212529;
+        }
+        .badge-custom {
+            font-size: 0.9rem;
+            padding: 0.5em 1em;
+        }
+        .navbar-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .recommendation-item {
+            padding: 10px;
+            border-left: 3px solid #28a745;
+            background: #f8f9fa;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -54,8 +103,27 @@
                 </div>
                 <div class="card-body">
                     <form id="prediction-form">
-                        <div class="slider-container">
-                            <div class="slider-label">
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Régimen de Entrenamiento:</strong></label>
+                            <select class="form-select" id="training-regime">
+                                <option value="balanced" selected>⚖️ Balanceado (0.7, 0.7, 0.7)</option>
+                                <option value="intensive">🔥 Intensivo (0.9, 0.9, 0.8)</option>
+                                <option value="technical">⚽ Técnico (0.5, 0.9, 0.7)</option>
+                                <option value="physical">💪 Físico (0.9, 0.6, 0.6)</option>
+                                <option value="conservative">🛡️ Conservador (0.5, 0.5, 0.5)</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-rocket"></i> Ejecutar Análisis Completo
+                            </button>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> Procesamiento: ~0.5s
+                            </small
                                 <label for="fisico">Físico</label>
                                 <span id="val-fisico">50</span>
                             </div>
@@ -147,7 +215,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                Probabilidades por Posición
+                                <i class="fas fa-chart-bar"></i> Probabilidades por Posición (Red Neuronal 2)
                             </div>
                             <div class="card-body">
                                 <canvas id="probsChart" height="100"></canvas>
@@ -156,18 +224,128 @@
                     </div>
                 </div>
 
+                <!-- Metrics Summary -->
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-title"><i class="fas fa-star"></i> Rating Pico</div>
+                            <div class="metric-value" id="metric-peak">--</div>
+                            <small class="text-muted" id="metric-peak-age">@ -- años</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-title"><i class="fas fa-chart-line"></i> Desarrollo</div>
+                            <div class="metric-value" id="metric-development">--</div>
+                            <small class="text-muted">puntos de crecimiento</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-title"><i class="fas fa-trophy"></i> ¿Alcanza Potencial?</div>
+                            <div class="metric-value" id="metric-potential-reached">--</div>
+                            <small class="text-muted" id="metric-potential-pct">--</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <div class="metric-title"><i class="fas fa-hourglass-half"></i> Carrera Útil</div>
+                            <div class="metric-value" id="metric-career">-- años</div>
+                            <small class="text-muted">hasta rating < 70</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <i class="fas fa-lightbulb"></i> Recomendaciones del Sistema
+                            </div>
+                            <div class="card-body" id="recommendations-container">
+                                <p class="text-muted">Las recomendaciones aparecerán después del análisis...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Simulation Chart -->
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-dark text-white">
-                                Evolución del Rendimiento (10 años)
+                                <i class="fas fa-chart-area"></i> Evolución del Rendimiento (10 años)
                             </div>
                             <div class="card-body">
                                 <canvas id="simChart" height="150"></canvas>
                                 <p class="text-muted small mt-2">
-                                    * La línea roja indica el Rating General (R). Las otras líneas muestran la evolución de Físico, Técnica y Mentalidad.
-                                    Si se activaron lesiones, se observarán caídas en el rendimiento físico.
+                                    * <strong>R (Rojo):</strong> Overall Rating | <strong>F (Verde):</strong> Físico | 
+                                    <strong>T (Azul):</strong> Técnica | <strong>M (Amarillo):</strong> Mentalidad
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fatigue Chart -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-warning text-dark">
+                                <i class="fas fa-tired"></i> Fatiga Acumulada
+                            </div>
+                            <div class="card-body">
+                                <canvas id="fatigueChart" height="80"></canvas>
+                                <p class="text-muted small mt-2">
+                                    La fatiga afecta el desarrollo. Niveles altos (>0.7) reducen efectividad del entrenamiento.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Statistics Table -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-info text-white">
+                                <i class="fas fa-table"></i> Estadísticas Detalladas por Atributo
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover" id="stats-table">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Atributo</th>
+                                                <th>Inicial</th>
+                                                <th>Final</th>
+                                                <th>Máximo</th>
+                                                <th>Mínimo</th>
+                                                <th>Promedio</th>
+                                                <th>Cambio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stats-tbody">
+                                            <tr><td colspan="7" class="text-center text-muted">Ejecuta el análisis para ver estadísticas...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Rate Analysis -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-secondary text-white">
+                                <i class="fas fa-tachometer-alt"></i> Análisis de Tasas de Cambio
+                            </div>
+                            <div class="card-body">
+                                <canvas id="derivativesChart" height="100"></canvas>
+                                <p class="text-muted small mt-2">
+                                    Muestra la velocidad de cambio de cada atributo. Valores positivos = crecimiento, negativos = declive.
                                 </p>
                             </div>
                         </div>
@@ -176,15 +354,90 @@
             </div>
             
             <!-- Placeholder when no results -->
-            <div id="placeholder-section" class="text-center p-5 text-muted">
-                <h3>👈 Ajusta los parámetros y pulsa "Simular"</h3>
-                <p>Los modelos de IA analizarán el perfil del jugador.</p>
+            <div id="placeholder-section" class="text-center p-5">
+                <div class="card">
+                    <div class="card-body">
+                        <i class="fas fa-chart-line fa-5x text-muted mb-4"></i>
+                        <h3><i class="fas fa-hand-point-left"></i> Configura los Parámetros</h3>
+                        <p class="text-muted">Ajusta edad, atributos y régimen de entrenamiento, luego presiona <strong>"Ejecutar Análisis Completo"</strong></p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <i class="fas fa-brain fa-2x text-primary mb-2"></i>
+                                    <h6>Red Neuronal 1</h6>
+                                    <small class="text-muted">Predicción de Potential (Regresión)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <i class="fas fa-sitemap fa-2x text-warning mb-2"></i>
+                                    <h6>Red Neuronal 2</h6>
+                                    <small class="text-muted">Clasificación de Posición</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <i class="fas fa-project-diagram fa-2x text-success mb-2"></i>
+                                    <h6>Simulación EDO</h6>
+                                    <small class="text-muted">Trayectoria de Carrera (RK4)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Footer -->
+<footer class="mt-5 py-4 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5><i class="fas fa-futbol"></i> Sistema Integrado de Análisis</h5>
+                <p class="small">
+                    Combina Machine Learning (Día 2) con Ecuaciones Diferenciales Ordinarias (Día 3) 
+                    para análisis predictivo completo de carreras deportivas.
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h6>Tecnologías</h6>
+                <ul class="list-unstyled small">
+                    <li><i class="fas fa-check"></i> Redes Neuronales (MLP)</li>
+                    <li><i class="fas fa-check"></i> Método RK4</li>
+                    <li><i class="fas fa-check"></i> Flask + Bootstrap</li>
+                    <li><i class="fas fa-check"></i> Chart.js</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6>Componentes</h6>
+                <ul class="list-unstyled small">
+                    <li>📊 Red 1: Regresión (Potential)</li>
+                    <li>🎯 Red 2: Clasificación (Posición)</li>
+                    <li>📈 EDO: Simulación Dinámica</li>
+                    <li>💡 Recomendaciones IA</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="bg-light">
+        <div class="text-center small">
+            <p class="mb-0">
+                <i class="fas fa-code"></i> Práctica Integrada Avanzada - Diciembre 2025 | 
+                <i class="fas fa-flask"></i> Proyecto Académico
+            </p>
+        </div>
+    </div>
+</footer>
+
 <script>
+    // Global chart instances
+    let probsChart = null;
+    let simChart = null;
+    let fatigueChart = null;
+    let derivativesChart = null;
+
     // Update slider values
     const inputs = ['fisico', 'tecnica', 'mentalidad', 'rating', 'edad', 'lesiones'];
     inputs.forEach(id => {
@@ -195,11 +448,190 @@
         });
     });
 
-    // Chart instances
+    // myChart for position probabilities (separate from others)
     let myChart = null;
-    let simChart = null;
 
-    // Handle form submission
+    // Calculate numerical derivatives
+    function calculateDerivatives(sim) {
+        const dt = 1/52; // weekly timestep
+        const dF = [], dT = [], dM = [], dR = [];
+        
+        for (let i = 1; i < sim.F.length; i++) {
+            dF.push((sim.F[i] - sim.F[i-1]) / dt);
+            dT.push((sim.T[i] - sim.T[i-1]) / dt);
+            dM.push((sim.M[i] - sim.M[i-1]) / dt);
+            dR.push((sim.R[i] - sim.R[i-1]) / dt);
+        }
+        return { dF, dT, dM, dR };
+    }
+
+    // Build statistics table
+    function buildStatisticsTable(sim) {
+        const stats = [
+            { name: 'Físico (F)', data: sim.F, color: '#28a745' },
+            { name: 'Técnica (T)', data: sim.T, color: '#007bff' },
+            { name: 'Mental (M)', data: sim.M, color: '#ffc107' },
+            { name: 'Rating (R)', data: sim.R, color: '#dc3545' }
+        ];
+        
+        const tbody = document.getElementById('stats-tbody');
+        tbody.innerHTML = '';
+        
+        stats.forEach(stat => {
+            const initial = stat.data[0];
+            const final = stat.data[stat.data.length - 1];
+            const max = Math.max(...stat.data);
+            const min = Math.min(...stat.data);
+            const avg = stat.data.reduce((a, b) => a + b, 0) / stat.data.length;
+            const change = final - initial;
+            const changeClass = change >= 0 ? 'text-success' : 'text-danger';
+            const changeIcon = change >= 0 ? '▲' : '▼';
+            
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong style="color: ${stat.color}">${stat.name}</strong></td>
+                    <td>${initial.toFixed(2)}</td>
+                    <td>${final.toFixed(2)}</td>
+                    <td>${max.toFixed(2)}</td>
+                    <td>${min.toFixed(2)}</td>
+                    <td>${avg.toFixed(2)}</td>
+                    <td class="${changeClass}"><strong>${changeIcon} ${change >= 0 ? '+' : ''}${change.toFixed(2)}</strong></td>
+                </tr>
+            `;
+        });
+    }
+
+    // Generate recommendations based on simulation
+    function generateRecommendations(simData, peakAge, peakR, development, reachedPotential, inputData) {
+        const recommendations = [];
+        const age = parseFloat(inputData.Edad);
+        const fisico = parseFloat(inputData.Fisico);
+        const tecnica = parseFloat(inputData.Tecnica);
+        const lesiones = parseFloat(inputData.Lesiones);
+        
+        // Age-based recommendations
+        if (age < 22) {
+            recommendations.push({
+                icon: 'fa-seedling',
+                color: 'success',
+                text: `<strong>Joven Promesa:</strong> A los ${age} años, está en fase óptima de desarrollo. Maximizar entrenamiento intensivo hasta los 24-25 años.`
+            });
+        } else if (age >= 22 && age < 28) {
+            recommendations.push({
+                icon: 'fa-fire',
+                color: 'warning',
+                text: `<strong>Prime Time:</strong> Ventana crítica de rendimiento. Pico esperado a los ${peakAge.toFixed(1)} años con rating ${peakR.toFixed(1)}.`
+            });
+        } else if (age >= 28 && age < 32) {
+            recommendations.push({
+                icon: 'fa-trophy',
+                color: 'info',
+                text: `<strong>Madurez:</strong> En o cerca del pico. Ajustar intensidad para prevenir lesiones y extender carrera.`
+            });
+        } else {
+            recommendations.push({
+                icon: 'fa-heart',
+                color: 'danger',
+                text: `<strong>Veterano:</strong> Enfoque en mantenimiento. Reducir carga física, compensar con experiencia mental.`
+            });
+        }
+        
+        // Technical recommendations
+        if (tecnica < 70) {
+            recommendations.push({
+                icon: 'fa-futbol',
+                color: 'primary',
+                text: `<strong>Técnica Mejorable:</strong> Rating técnico ${tecnica.toFixed(0)}. Incrementar entrenamiento técnico (ET) a 0.8+ para mejores resultados.`
+            });
+        } else if (tecnica > 85) {
+            recommendations.push({
+                icon: 'fa-star',
+                color: 'success',
+                text: `<strong>Excelencia Técnica:</strong> Alto nivel técnico (${tecnica.toFixed(0)}). Esto permitirá envejecer mejor y mantener rendimiento post-30.`
+            });
+        }
+        
+        // Physical recommendations
+        if (fisico > 85 && age > 26) {
+            recommendations.push({
+                icon: 'fa-running',
+                color: 'warning',
+                text: `<strong>Alerta Física:</strong> Alto desgaste físico previsto. Reducir intensidad física tras los ${Math.max(28, age + 2)} años.`
+            });
+        }
+        
+        // Injury recommendations
+        if (lesiones > 50) {
+            recommendations.push({
+                icon: 'fa-ambulance',
+                color: 'danger',
+                text: `<strong>Alto Riesgo de Lesiones:</strong> Implementar régimen conservador (0.5-0.6) y programa preventivo. Impacto estimado: -${(lesiones * 0.02).toFixed(1)} puntos.`
+            });
+        } else if (lesiones > 0) {
+            recommendations.push({
+                icon: 'fa-medkit',
+                color: 'warning',
+                text: `<strong>Riesgo Moderado:</strong> Monitorear cargas de entrenamiento. Balance entre intensidad y recuperación.`
+            });
+        }
+        
+        // Potential recommendations
+        if (!reachedPotential && development > 0) {
+            const gap = (inputData.potential || 85) - peakR;
+            recommendations.push({
+                icon: 'fa-chart-line',
+                color: 'info',
+                text: `<strong>Potencial no Alcanzado:</strong> Brecha de ${gap.toFixed(1)} puntos. Considerar aumentar intensidad de entrenamiento o ajustar régimen.`
+            });
+        } else if (reachedPotential) {
+            recommendations.push({
+                icon: 'fa-check-circle',
+                color: 'success',
+                text: `<strong>¡Potencial Alcanzado!</strong> El sistema predice que alcanzará ~${(peakR * 100 / (inputData.potential || 85)).toFixed(0)}% de su potencial máximo.`
+            });
+        }
+        
+        // Career planning
+        if (peakAge - age > 2) {
+            recommendations.push({
+                icon: 'fa-calendar-alt',
+                color: 'primary',
+                text: `<strong>Planificación:</strong> Faltan ${(peakAge - age).toFixed(1)} años para el pico. Ventana óptima de transferencia: ${(peakAge - 1).toFixed(0)}-${(peakAge + 2).toFixed(0)} años.`
+            });
+        } else if (Math.abs(peakAge - age) <= 2) {
+            recommendations.push({
+                icon: 'fa-gem',
+                color: 'warning',
+                text: `<strong>Momento Óptimo:</strong> En ventana de máximo valor. Ideal para fichajes importantes o renovación de contrato.`
+            });
+        }
+        
+        // Development recommendations
+        if (development > 10) {
+            recommendations.push({
+                icon: 'fa-rocket',
+                color: 'success',
+                text: `<strong>Alto Potencial de Crecimiento:</strong> Proyección de +${development.toFixed(1)} puntos. Inversión recomendada en desarrollo a largo plazo.`
+            });
+        } else if (development < 0) {
+            recommendations.push({
+                icon: 'fa-arrow-down',
+                color: 'danger',
+                text: `<strong>Declive Previsto:</strong> ${development.toFixed(1)} puntos. Enfoque en mantenimiento y rol rotativo.`
+            });
+        }
+        
+        // Render recommendations
+        const container = document.getElementById('recommendations-container');
+        container.innerHTML = recommendations.map(rec => `
+            <div class="recommendation-item">
+                <i class="fas ${rec.icon} text-${rec.color}"></i>
+                ${rec.text}
+            </div>
+        `).join('');
+    }
+
+    // Chart instances
     document.getElementById('prediction-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -279,9 +711,41 @@
                 const ctxSim = document.getElementById('simChart').getContext('2d');
                 const simData = result.simulation;
                 
-                if (simChart) {
-                    simChart.destroy();
+                // Calculate metrics from simulation
+                const peakR = Math.max(...simData.R);
+                const peakIdx = simData.R.indexOf(peakR);
+                const peakAge = simData.age[peakIdx];
+                const initialR = simData.R[0];
+                const development = peakR - initialR;
+                const potential = result.potential || 85;
+                const reachedPotential = peakR >= (potential * 0.95);
+                const potentialPct = ((peakR / potential) * 100).toFixed(1);
+                
+                // Career length (until R < 70)
+                let careerYears = 0;
+                for (let i = 0; i < simData.R.length; i++) {
+                    if (simData.R[i] < 70) {
+                        careerYears = simData.age[i] - simData.age[0];
+                        break;
+                    }
                 }
+                if (careerYears === 0) careerYears = simData.age[simData.age.length - 1] - simData.age[0];
+                
+                // Update metrics
+                document.getElementById('metric-peak').textContent = peakR.toFixed(1);
+                document.getElementById('metric-peak-age').textContent = `@ ${peakAge.toFixed(1)} años`;
+                document.getElementById('metric-development').textContent = development >= 0 ? `+${development.toFixed(1)}` : development.toFixed(1);
+                document.getElementById('metric-development').style.color = development >= 0 ? '#28a745' : '#dc3545';
+                document.getElementById('metric-potential-reached').textContent = reachedPotential ? '✓ Sí' : '✗ No';
+                document.getElementById('metric-potential-reached').style.color = reachedPotential ? '#28a745' : '#ffc107';
+                document.getElementById('metric-potential-pct').textContent = `${potentialPct}% del potencial`;
+                document.getElementById('metric-career').textContent = careerYears.toFixed(1);
+                
+                // Pass potential to recommendations
+                data.potential = potential;
+                generateRecommendations(simData, peakAge, peakR, development, reachedPotential, data);
+                
+                if (simChart) simChart.destroy();
                 
                 simChart = new Chart(ctxSim, {
                     type: 'line',
@@ -355,6 +819,71 @@
                                 display: true,
                                 text: 'Proyección de Rendimiento'
                             }
+                        }
+                    }
+                });
+
+                // Fatigue Chart
+                const fatigueCtx = document.getElementById('fatigueChart').getContext('2d');
+                if (fatigueChart) fatigueChart.destroy();
+                fatigueChart = new Chart(fatigueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: simData.age,
+                        datasets: [{
+                            label: 'Fatiga',
+                            data: simData.fatigue,
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: ctx => 'Fatiga: ' + ctx.parsed.y.toFixed(3)
+                                }
+                            }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: 'Edad (años)' } },
+                            y: { title: { display: true, text: 'Nivel (0-1)' }, min: 0, max: 1 }
+                        }
+                    }
+                });
+
+                // Build statistics table
+                buildStatisticsTable(simData);
+
+                // Calculate and render derivatives
+                const derivatives = calculateDerivatives(simData);
+                const derivCtx = document.getElementById('derivativesChart').getContext('2d');
+                if (derivativesChart) derivativesChart.destroy();
+                derivativesChart = new Chart(derivCtx, {
+                    type: 'line',
+                    data: {
+                        labels: simData.age.slice(1),
+                        datasets: [
+                            { label: 'dR/dt (Rating)', data: derivatives.dR, borderColor: '#dc3545', borderWidth: 2.5, tension: 0.3, fill: false },
+                            { label: 'dF/dt (Físico)', data: derivatives.dF, borderColor: '#28a745', borderWidth: 1.5, tension: 0.3, fill: false },
+                            { label: 'dT/dt (Técnica)', data: derivatives.dT, borderColor: '#007bff', borderWidth: 1.5, tension: 0.3, fill: false },
+                            { label: 'dM/dt (Mental)', data: derivatives.dM, borderColor: '#ffc107', borderWidth: 1.5, tension: 0.3, fill: false }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: true, position: 'top' },
+                            tooltip: { mode: 'index', intersect: false }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: 'Edad (años)' } },
+                            y: { title: { display: true, text: 'Tasa (puntos/año)' } }
                         }
                     }
                 });

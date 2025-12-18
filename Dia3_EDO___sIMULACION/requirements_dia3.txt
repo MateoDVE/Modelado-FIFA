@@ -1,0 +1,16 @@
+# Dependencias para Día 3: Sistema Dinámico con EDOs
+
+# Core científico
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+
+# Visualización interactiva
+plotly>=5.14.0
+streamlit>=1.28.0
+
+# Opcional: Para mejor rendimiento
+scipy>=1.10.0
+
+# Opcional: Para análisis adicional
+scikit-learn>=1.3.0
