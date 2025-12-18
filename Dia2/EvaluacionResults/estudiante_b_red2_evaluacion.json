@@ -1,185 +1,302 @@
 {
   "metrics": {
-    "accuracy": 0.8805903398926654,
-    "macro_precision": 0.8790907374224386,
-    "macro_recall": 0.8805903398926654,
-    "macro_f1": 0.8787843887105808,
-    "macro_auc": 0.8643921943552904,
+    "accuracy": 0.7293610911701364,
+    "macro_precision": 0.734144438479505,
+    "macro_recall": 0.7293610911701364,
+    "macro_f1": 0.7287036795593037,
+    "macro_auc": 0.789351839779652,
     "confusion_matrix": [
       [
-        1991,
-        22,
-        217,
-        6
+        620,
+        0,
+        1,
+        159,
+        8,
+        204,
+        3
       ],
       [
         0,
-        2067,
-        155,
-        14
-      ],
-      [
-        280,
-        334,
-        1605,
-        17
-      ],
-      [
+        869,
+        66,
         0,
-        10,
-        13,
-        2213
+        52,
+        5,
+        3
+      ],
+      [
+        12,
+        112,
+        610,
+        158,
+        89,
+        7,
+        7
+      ],
+      [
+        163,
+        0,
+        18,
+        731,
+        25,
+        46,
+        12
+      ],
+      [
+        27,
+        71,
+        73,
+        32,
+        625,
+        162,
+        5
+      ],
+      [
+        214,
+        0,
+        2,
+        88,
+        53,
+        634,
+        4
+      ],
+      [
+        1,
+        0,
+        2,
+        0,
+        0,
+        1,
+        991
       ]
     ],
     "by_class": {
-      "Atacante": {
-        "precision": 0.876706296785557,
-        "recall": 0.8904293381037567,
-        "f1": 0.8835145329487464,
-        "auc_roc": 0.8667572664743732,
-        "support": 2236
+      "Defensa_Central": {
+        "precision": 0.5978784956605593,
+        "recall": 0.6231155778894473,
+        "f1": 0.610236220472441,
+        "auc_roc": 0.7301181102362204,
+        "support": 995
       },
-      "Defensa": {
-        "precision": 0.8495684340320592,
-        "recall": 0.9244186046511628,
-        "f1": 0.8854144356393232,
-        "auc_roc": 0.8677072178196616,
-        "support": 2236
+      "Delantero": {
+        "precision": 0.8260456273764258,
+        "recall": 0.8733668341708543,
+        "f1": 0.8490473864191499,
+        "auc_roc": 0.8495236932095749,
+        "support": 995
       },
-      "Medio": {
-        "precision": 0.8065326633165829,
-        "recall": 0.7177996422182469,
-        "f1": 0.7595835305253195,
-        "auc_roc": 0.8047917652626597,
-        "support": 2236
+      "Extremo": {
+        "precision": 0.7901554404145078,
+        "recall": 0.6130653266331658,
+        "f1": 0.690435766836446,
+        "auc_roc": 0.770217883418223,
+        "support": 995
+      },
+      "Lateral": {
+        "precision": 0.6258561643835616,
+        "recall": 0.7346733668341708,
+        "f1": 0.6759130836800739,
+        "auc_roc": 0.7629565418400369,
+        "support": 995
+      },
+      "Mediocentro": {
+        "precision": 0.7335680751173709,
+        "recall": 0.628140703517588,
+        "f1": 0.676773145641581,
+        "auc_roc": 0.7633865728207905,
+        "support": 995
+      },
+      "Pivote": {
+        "precision": 0.5986779981114259,
+        "recall": 0.6371859296482412,
+        "f1": 0.617332035053554,
+        "auc_roc": 0.7336660175267771,
+        "support": 995
       },
       "Portero": {
-        "precision": 0.9835555555555555,
-        "recall": 0.9897137745974955,
-        "f1": 0.9866250557289344,
-        "auc_roc": 0.9183125278644673,
-        "support": 2236
+        "precision": 0.9668292682926829,
+        "recall": 0.9959798994974874,
+        "f1": 0.9811881188118812,
+        "auc_roc": 0.9155940594059406,
+        "support": 995
       }
     }
   },
   "error_analysis": {
     "top_confusions": [
       {
-        "true_class": "Medio",
-        "predicted_class": "Defensa",
-        "count": 334,
-        "percentage": 14.937388193202148
+        "true_class": "Pivote",
+        "predicted_class": "Defensa_Central",
+        "count": 214,
+        "percentage": 21.50753768844221
       },
       {
-        "true_class": "Medio",
-        "predicted_class": "Atacante",
-        "count": 280,
-        "percentage": 12.522361359570661
+        "true_class": "Defensa_Central",
+        "predicted_class": "Pivote",
+        "count": 204,
+        "percentage": 20.502512562814072
       },
       {
-        "true_class": "Atacante",
-        "predicted_class": "Medio",
-        "count": 217,
-        "percentage": 9.704830053667262
+        "true_class": "Lateral",
+        "predicted_class": "Defensa_Central",
+        "count": 163,
+        "percentage": 16.381909547738694
       },
       {
-        "true_class": "Defensa",
-        "predicted_class": "Medio",
-        "count": 155,
-        "percentage": 6.932021466905187
+        "true_class": "Mediocentro",
+        "predicted_class": "Pivote",
+        "count": 162,
+        "percentage": 16.281407035175878
       },
       {
-        "true_class": "Atacante",
-        "predicted_class": "Defensa",
-        "count": 22,
-        "percentage": 0.9838998211091234
+        "true_class": "Defensa_Central",
+        "predicted_class": "Lateral",
+        "count": 159,
+        "percentage": 15.979899497487438
       },
       {
-        "true_class": "Medio",
-        "predicted_class": "Portero",
-        "count": 17,
-        "percentage": 0.7602862254025045
+        "true_class": "Extremo",
+        "predicted_class": "Lateral",
+        "count": 158,
+        "percentage": 15.879396984924623
       },
       {
-        "true_class": "Defensa",
-        "predicted_class": "Portero",
-        "count": 14,
-        "percentage": 0.6261180679785331
+        "true_class": "Extremo",
+        "predicted_class": "Delantero",
+        "count": 112,
+        "percentage": 11.256281407035177
       },
       {
-        "true_class": "Portero",
-        "predicted_class": "Medio",
-        "count": 13,
-        "percentage": 0.5813953488372093
+        "true_class": "Extremo",
+        "predicted_class": "Mediocentro",
+        "count": 89,
+        "percentage": 8.944723618090453
       },
       {
-        "true_class": "Portero",
-        "predicted_class": "Defensa",
-        "count": 10,
-        "percentage": 0.4472271914132379
+        "true_class": "Pivote",
+        "predicted_class": "Lateral",
+        "count": 88,
+        "percentage": 8.84422110552764
       },
       {
-        "true_class": "Atacante",
-        "predicted_class": "Portero",
-        "count": 6,
-        "percentage": 0.26833631484794274
+        "true_class": "Mediocentro",
+        "predicted_class": "Extremo",
+        "count": 73,
+        "percentage": 7.3366834170854265
       }
     ],
     "low_confidence": {
-      "count": 640,
-      "percentage": 7.16457960644007,
+      "count": 1131,
+      "percentage": 16.238334529791818,
       "avg_max_proba": 0.52
     },
     "errors_by_class": {
-      "Atacante": {
-        "total": 2236,
-        "errors": 245,
-        "error_rate": 0.10957066189624329,
-        "avg_confidence": 0.9280858676207513
+      "Defensa_Central": {
+        "total": 995,
+        "errors": 375,
+        "error_rate": 0.3768844221105528,
+        "avg_confidence": 0.8746231155778894
       },
-      "Defensa": {
-        "total": 2236,
-        "errors": 169,
-        "error_rate": 0.0755813953488372,
-        "avg_confidence": 0.9348837209302325
+      "Delantero": {
+        "total": 995,
+        "errors": 126,
+        "error_rate": 0.12663316582914572,
+        "avg_confidence": 0.9246733668341709
       },
-      "Medio": {
-        "total": 2236,
-        "errors": 631,
-        "error_rate": 0.2822003577817531,
-        "avg_confidence": 0.8935599284436494
+      "Extremo": {
+        "total": 995,
+        "errors": 385,
+        "error_rate": 0.3869346733668342,
+        "avg_confidence": 0.8726130653266332
+      },
+      "Lateral": {
+        "total": 995,
+        "errors": 264,
+        "error_rate": 0.26532663316582916,
+        "avg_confidence": 0.8969346733668342
+      },
+      "Mediocentro": {
+        "total": 995,
+        "errors": 370,
+        "error_rate": 0.37185929648241206,
+        "avg_confidence": 0.8756281407035176
+      },
+      "Pivote": {
+        "total": 995,
+        "errors": 361,
+        "error_rate": 0.3628140703517588,
+        "avg_confidence": 0.8774371859296483
       },
       "Portero": {
-        "total": 2236,
-        "errors": 23,
-        "error_rate": 0.010286225402504472,
-        "avg_confidence": 0.9479427549194991
+        "total": 995,
+        "errors": 4,
+        "error_rate": 0.004020100502512563,
+        "avg_confidence": 0.9491959798994976
       }
     },
     "confusion_matrix": [
       [
-        1991,
-        22,
-        217,
-        6
+        620,
+        0,
+        1,
+        159,
+        8,
+        204,
+        3
       ],
       [
         0,
-        2067,
-        155,
-        14
-      ],
-      [
-        280,
-        334,
-        1605,
-        17
-      ],
-      [
+        869,
+        66,
         0,
-        10,
-        13,
-        2213
+        52,
+        5,
+        3
+      ],
+      [
+        12,
+        112,
+        610,
+        158,
+        89,
+        7,
+        7
+      ],
+      [
+        163,
+        0,
+        18,
+        731,
+        25,
+        46,
+        12
+      ],
+      [
+        27,
+        71,
+        73,
+        32,
+        625,
+        162,
+        5
+      ],
+      [
+        214,
+        0,
+        2,
+        88,
+        53,
+        634,
+        4
+      ],
+      [
+        1,
+        0,
+        2,
+        0,
+        0,
+        1,
+        991
       ]
     ]
   },

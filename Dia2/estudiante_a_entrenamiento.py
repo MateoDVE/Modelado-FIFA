@@ -18,6 +18,9 @@ import numpy as np
 import pandas as pd
 import json
 import pickle
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from models import (
     MLPRegressor, MLPClassifier,
     build_position_target_7_classes, undersample_balance,

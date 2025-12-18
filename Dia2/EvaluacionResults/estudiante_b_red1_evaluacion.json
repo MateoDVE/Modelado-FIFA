@@ -69,8 +69,8 @@
     },
     {
       "feature": "score_mental",
-      "importance": 0.0702272366280509,
-      "std": 0.009363631550406789
+      "importance": 0.07022723662805089,
+      "std": 0.009363631550406785
     },
     {
       "feature": "ball_control",
@@ -79,7 +79,7 @@
     },
     {
       "feature": "score_tecnico",
-      "importance": 0.058630474728561005,
+      "importance": 0.05863047472856101,
       "std": 0.007817396630474802
     },
     {

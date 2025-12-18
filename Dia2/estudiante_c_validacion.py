@@ -18,7 +18,9 @@ import numpy as np
 import pandas as pd
 import json
 import time
-
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from models import (
     MLPRegressor, MLPClassifier,
     build_position_target_by_rules, undersample_balance,
@@ -486,7 +488,8 @@ def validate_red1(df, verbose=True):
         print("="*80)
     
     # Cargar resultados del Estudiante A
-    with open("estudiante_a_red1_results.json", "r", encoding="utf-8") as f:
+    results_path = Path(__file__).parent / "EntrenamientoResults" / "estudiante_a_red1_results.json"
+    with open(results_path, "r", encoding="utf-8") as f:
         student_a_results = json.load(f)
     
     features = student_a_results['features']
@@ -595,7 +598,8 @@ def validate_red2(df, verbose=True):
         print("="*80)
     
     # Cargar resultados del Estudiante A
-    with open("estudiante_a_red2_results.json", "r", encoding="utf-8") as f:
+    results_path = Path(__file__).parent / "EntrenamientoResults" / "estudiante_a_red2_results.json"
+    with open(results_path, "r", encoding="utf-8") as f:
         student_a_results = json.load(f)
     
     features = student_a_results['features']
@@ -770,16 +774,19 @@ def main():
     cv_results_red1 = validate_red1(df, verbose=True)
     
     # Guardar resultados
-    with open("estudiante_c_red1_cv_results.json", "w", encoding="utf-8") as f:
+    output_dir = Path(__file__).parent / "ValidacionResults"
+    output_dir.mkdir(exist_ok=True)
+    
+    with open(output_dir / "estudiante_c_red1_cv_results.json", "w", encoding="utf-8") as f:
         json.dump(cv_results_red1, f, indent=2, ensure_ascii=False)
     
     pd.DataFrame(cv_results_red1['fold_results']).to_csv(
-        "estudiante_c_red1_cv_folds.csv", index=False
+        output_dir / "estudiante_c_red1_cv_folds.csv", index=False
     )
     
     print("\n✅ Red 1: Resultados de CV guardados en:")
-    print("   - estudiante_c_red1_cv_results.json")
-    print("   - estudiante_c_red1_cv_folds.csv")
+    print("   - ValidacionResults/estudiante_c_red1_cv_results.json")
+    print("   - ValidacionResults/estudiante_c_red1_cv_folds.csv")
     
     # ==========================================
     # VALIDACIÓN RED 2
@@ -787,27 +794,33 @@ def main():
     cv_results_red2 = validate_red2(df, verbose=True)
     
     # Guardar resultados
-    with open("estudiante_c_red2_cv_results.json", "w", encoding="utf-8") as f:
+    output_dir = Path(__file__).parent / "ValidacionResults"
+    output_dir.mkdir(exist_ok=True)
+    
+    with open(output_dir / "estudiante_c_red2_cv_results.json", "w", encoding="utf-8") as f:
         json.dump(cv_results_red2, f, indent=2, ensure_ascii=False)
     
     pd.DataFrame(cv_results_red2['fold_results']).to_csv(
-        "estudiante_c_red2_cv_folds.csv", index=False
+        output_dir / "estudiante_c_red2_cv_folds.csv", index=False
     )
     
     print("\n✅ Red 2: Resultados de CV guardados en:")
-    print("   - estudiante_c_red2_cv_results.json")
-    print("   - estudiante_c_red2_cv_folds.csv")
+    print("   - ValidacionResults/estudiante_c_red2_cv_results.json")
+    print("   - ValidacionResults/estudiante_c_red2_cv_folds.csv")
     
     # ==========================================
     # ANÁLISIS ESTADÍSTICO
     # ==========================================
     stats_analysis = statistical_analysis(cv_results_red1, cv_results_red2, verbose=True)
     
-    with open("estudiante_c_statistical_analysis.json", "w", encoding="utf-8") as f:
+    output_dir = Path(__file__).parent / "ValidacionResults"
+    output_dir.mkdir(exist_ok=True)
+    
+    with open(output_dir / "estudiante_c_statistical_analysis.json", "w", encoding="utf-8") as f:
         json.dump(stats_analysis, f, indent=2, ensure_ascii=False)
     
     print("\n✅ Análisis estadístico guardado en:")
-    print("   - estudiante_c_statistical_analysis.json")
+    print("   - ValidacionResults/estudiante_c_statistical_analysis.json")
     
     # ==========================================
     # RESUMEN FINAL

@@ -17,7 +17,9 @@ import numpy as np
 import pandas as pd
 import json
 from collections import defaultdict
-
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from models import (
     MLPRegressor, MLPClassifier,
     build_position_target_by_rules, undersample_balance,
@@ -497,7 +499,8 @@ def evaluate_red1(df, verbose=True):
         print("="*80)
     
     # Cargar resultados del Estudiante A (YA ENTRENADOS)
-    with open("estudiante_a_red1_results.json", "r", encoding="utf-8") as f:
+    results_path = Path(__file__).parent / "EntrenamientoResults" / "estudiante_a_red1_results.json"
+    with open(results_path, "r", encoding="utf-8") as f:
         student_a_results = json.load(f)
     
     features = student_a_results['features']
@@ -623,15 +626,19 @@ def evaluate_red1(df, verbose=True):
         'activation_stats': activation_stats
     }
     
-    with open("estudiante_b_red1_evaluacion.json", "w", encoding="utf-8") as f:
+    # Crear carpeta de resultados si no existe
+    output_dir = Path(__file__).parent / "EvaluacionResults"
+    output_dir.mkdir(exist_ok=True)
+    
+    with open(output_dir / "estudiante_b_red1_evaluacion.json", "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
     
-    pd.DataFrame(feature_importance).to_csv("estudiante_b_red1_feature_importance.csv", index=False)
+    pd.DataFrame(feature_importance).to_csv(output_dir / "estudiante_b_red1_feature_importance.csv", index=False)
     
     if verbose:
         print("\n✅ Resultados guardados en:")
-        print("   - estudiante_b_red1_evaluacion.json")
-        print("   - estudiante_b_red1_feature_importance.csv")
+        print("   - EvaluacionResults/estudiante_b_red1_evaluacion.json")
+        print("   - EvaluacionResults/estudiante_b_red1_feature_importance.csv")
     
     return results
 
@@ -652,7 +659,8 @@ def evaluate_red2(df, verbose=True):
         print("="*80)
     
     # Cargar resultados del Estudiante A (YA ENTRENADOS)
-    with open("estudiante_a_red2_results.json", "r", encoding="utf-8") as f:
+    results_dir = Path(__file__).parent / "EntrenamientoResults"
+    with open(results_dir / "estudiante_a_red2_results.json", "r", encoding="utf-8") as f:
         student_a_results = json.load(f)
     
     features = student_a_results['features']
@@ -660,7 +668,7 @@ def evaluate_red2(df, verbose=True):
     test_accuracy = student_a_results['results']['test_accuracy']
     
     # Cargar matriz de confusión del Estudiante A
-    cm_df = pd.read_csv("estudiante_a_red2_confusion_matrix.csv", index_col=0)
+    cm_df = pd.read_csv(results_dir / "estudiante_a_red2_confusion_matrix.csv", index_col=0)
     cm = cm_df.values
     
     if verbose:
@@ -830,10 +838,14 @@ def evaluate_red2(df, verbose=True):
         'activation_stats': activation_stats
     }
     
-    with open("estudiante_b_red2_evaluacion.json", "w", encoding="utf-8") as f:
+    # Crear carpeta de resultados si no existe
+    output_dir = Path(__file__).parent / "EvaluacionResults"
+    output_dir.mkdir(exist_ok=True)
+    
+    with open(output_dir / "estudiante_b_red2_evaluacion.json", "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
     
-    pd.DataFrame(feature_importance).to_csv("estudiante_b_red2_feature_importance.csv", index=False)
+    pd.DataFrame(feature_importance).to_csv(output_dir / "estudiante_b_red2_feature_importance.csv", index=False)
     
     # Matriz de confusión detallada
     cm_df = pd.DataFrame(
@@ -841,13 +853,13 @@ def evaluate_red2(df, verbose=True):
         index=[f"real_{c}" for c in classes],
         columns=[f"pred_{c}" for c in classes]
     )
-    cm_df.to_csv("estudiante_b_red2_confusion_matrix_detailed.csv")
+    cm_df.to_csv(output_dir / "estudiante_b_red2_confusion_matrix_detailed.csv")
     
     if verbose:
         print("\n✅ Resultados guardados en:")
-        print("   - estudiante_b_red2_evaluacion.json")
-        print("   - estudiante_b_red2_feature_importance.csv")
-        print("   - estudiante_b_red2_confusion_matrix_detailed.csv")
+        print("   - EvaluacionResults/estudiante_b_red2_evaluacion.json")
+        print("   - EvaluacionResults/estudiante_b_red2_feature_importance.csv")
+        print("   - EvaluacionResults/estudiante_b_red2_confusion_matrix_detailed.csv")
     
     return results
 

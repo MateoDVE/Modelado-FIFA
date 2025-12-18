@@ -31,6 +31,10 @@ from sklearn.metrics import (
     accuracy_score, precision_recall_fscore_support, confusion_matrix
 )
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from models import (
     build_position_target_7_classes, undersample_balance,
     rmse, mae, ID_COLS
